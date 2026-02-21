@@ -9,43 +9,45 @@
     <style>
         body { background-color: #0b0f1a; color: white; font-family: sans-serif; }
         .hidden { display: none; }
-        .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 20px; padding: 20px; transition: 0.3s; }
-        .btn-buy { background: #fbbf24; color: black; font-weight: bold; padding: 6px 20px; border-radius: 12px; }
-        .float-wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 100; }
-        .float-cart { position: fixed; bottom: 25px; right: 20px; background: #fbbf24; color: black; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 100; cursor: pointer; }
+        .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 15px; padding: 15px; transition: 0.3s; }
+        .btn-buy { background: #fbbf24; color: black; font-weight: bold; padding: 5px 15px; border-radius: 10px; font-size: 14px; }
+        .float-wa { position: fixed; bottom: 85px; right: 15px; background: #25d366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 100; }
+        .float-cart { position: fixed; bottom: 20px; right: 15px; background: #fbbf24; color: black; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; z-index: 100; cursor: pointer; }
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-        .modal-content { background: #161b2c; width: 100%; max-width: 450px; border-radius: 24px; padding: 24px; max-height: 80vh; overflow-y: auto; }
+        .modal-content { background: #161b2c; width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; max-height: 80vh; overflow-y: auto; }
+        /* சிறிய படங்கள் */
+        .prod-img { width: 60px; height: 60px; object-fit: contain; border-radius: 10px; margin-bottom: 10px; background: #0b0f1a; }
     </style>
 </head>
 <body>
 
     <div id="loginArea" class="max-w-md mx-auto mt-20 card text-center mx-4">
-        <h2 class="text-3xl font-black text-yellow-500 mb-6 italic">KAKASHI STORE</h2>
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 rounded-xl bg-gray-800 border border-gray-700 outline-none">
-        <input type="password" id="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-gray-700 outline-none">
-        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl uppercase">Login</button>
+        <h2 class="text-2xl font-black text-yellow-500 mb-4 italic">KAKASHI STORE</h2>
+        <input type="email" id="email" placeholder="Email" class="w-full p-3 mb-3 rounded-lg bg-gray-800 border border-gray-700 outline-none text-sm">
+        <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-5 rounded-lg bg-gray-800 border border-gray-700 outline-none text-sm">
+        <button onclick="login()" class="w-full bg-yellow-500 text-black font-bold p-3 rounded-lg uppercase text-sm">Login</button>
     </div>
 
-    <div id="storeArea" class="hidden pb-32">
-        <nav class="flex justify-between items-center p-6 sticky top-0 bg-[#0b0f1a]/90 backdrop-blur-md z-50 border-b border-gray-800">
-            <h1 class="text-2xl font-black text-yellow-500 italic uppercase">Kakashi Store</h1>
-            <div class="bg-yellow-500 text-black px-4 py-1.5 rounded-xl font-bold flex items-center shadow-lg">
-                <i class="fas fa-coins mr-2"></i> <span id="balance">...</span>
+    <div id="storeArea" class="hidden pb-24">
+        <nav class="flex justify-between items-center p-5 sticky top-0 bg-[#0b0f1a]/95 backdrop-blur-md z-50 border-b border-gray-800">
+            <h1 class="text-xl font-black text-yellow-500 italic uppercase">Kakashi Store</h1>
+            <div class="bg-yellow-500 text-black px-3 py-1 rounded-lg font-bold flex items-center text-sm">
+                <i class="fas fa-coins mr-1.5"></i> <span id="balance">...</span>
             </div>
         </nav>
 
-        <div id="productGrid" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="productGrid" class="p-4 grid grid-cols-1 gap-4"></div>
 
         <a href="https://wa.me/94719609238" target="_blank" class="float-wa"><i class="fab fa-whatsapp"></i></a>
         <div class="float-cart" onclick="toggleModal(true)"><i class="fas fa-shopping-bag"></i></div>
 
         <div id="orderModal" class="modal hidden">
             <div class="modal-content">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">Your Orders</h2>
-                    <button onclick="toggleModal(false)" class="text-gray-400 text-3xl">&times;</button>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-yellow-500 uppercase">My Inbox</h2>
+                    <button onclick="toggleModal(false)" class="text-gray-400 text-2xl">&times;</button>
                 </div>
-                <div id="ordersList" class="space-y-4"></div>
+                <div id="ordersList" class="space-y-3"></div>
             </div>
         </div>
     </div>
@@ -69,16 +71,15 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // பொருட்களை இங்கே மாற்றலாம்
         const products = [
-            { name: "Remote Car", cost: 1500, img: "car.jpg" }, // இதற்கு படம் வரும்
-            { name: "Capcut Pro", cost: 100, icon: "fas fa-video" }, // மற்றவைக்கு ஐகான்
-            { name: "Netflix Premium", cost: 500, icon: "fas fa-tv" },
-            { name: "Spotify Premium", cost: 300, icon: "fas fa-music" },
-            { name: "Lightroom Premium", cost: 200, icon: "fas fa-camera" },
-            { name: "FF Diamond 100", cost: 150, icon: "fas fa-gem" },
-            { name: "FF Diamond 200", cost: 280, icon: "fas fa-gem" },
-            { name: "FF Diamond 300", cost: 400, icon: "fas fa-gem" }
+            { name: "Remote Car", cost: 1500, img: "car.jpg" },
+            { name: "FF Diamond 100", cost: 150, img: "ff100.jpg" },
+            { name: "FF Diamond 200", cost: 280, img: "ff200.jpg" },
+            { name: "FF Diamond 300", cost: 400, img: "ff300.jpg" },
+            { name: "Capcut Pro", cost: 100, img: "capcut.jpg" },
+            { name: "Netflix Premium", cost: 500, img: "netflix.jpg" },
+            { name: "Spotify Premium", cost: 300, img: "spotify.jpg" },
+            { name: "Lightroom Premium", cost: 200, img: "lightroom.jpg" }
         ];
 
         let uBal = 0; let uID = null;
@@ -86,7 +87,6 @@
         window.login = () => {
             const e = document.getElementById('email').value;
             const p = document.getElementById('password').value;
-            if(!e || !p) return alert("Fill all details");
             signInWithEmailAndPassword(auth, e, p).catch(() => createUserWithEmailAndPassword(auth, e, p));
         };
 
@@ -106,44 +106,43 @@
                     if(snap.val()) {
                         Object.entries(snap.val()).reverse().forEach(([key, order]) => {
                             const isPending = order.status === "Pending";
-                            list.innerHTML += `<div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'} p-4">
-                                <p class="font-bold text-white">${order.item}</p>
-                                <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">Status: ${order.status}</p>
-                                <div class="mt-2 text-sm text-gray-300 bg-black/40 p-2 rounded">${order.delivery || 'Waiting for Admin...'}</div>
-                                ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-2 text-red-500 text-xs font-bold uppercase hover:underline">Cancel & Refund</button>` : ''}
+                            list.innerHTML += `<div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'} p-3">
+                                <p class="font-bold text-sm text-white">${order.item}</p>
+                                <p class="text-[10px] ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">${order.status}</p>
+                                <div class="mt-2 text-xs text-gray-300 bg-black/40 p-2 rounded">${order.delivery || 'Processing...'}</div>
+                                ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-2 text-red-500 text-[10px] font-bold uppercase">Cancel & Refund</button>` : ''}
                             </div>`;
                         });
-                    } else { list.innerHTML = "<p class='text-center text-gray-500'>No orders yet.</p>"; }
+                    } else { list.innerHTML = "<p class='text-center text-gray-500 text-xs'>Your bag is empty.</p>"; }
                 });
             }
         });
 
         function loadStore() {
-            document.getElementById('productGrid').innerHTML = products.map(p => {
-                const media = p.img 
-                    ? `<img src="${p.img}" class="w-full h-32 object-contain mb-4 rounded-lg bg-gray-800">` 
-                    : `<div class="text-4xl mb-4 text-yellow-500"><i class="${p.icon}"></i></div>`;
-                return `<div class="card text-center">
-                    ${media}
-                    <h3 class="font-bold text-xl mb-4">${p.name}</h3>
-                    <div class="flex justify-between items-center mt-2 border-t border-gray-800 pt-4">
-                        <span class="text-yellow-500 font-black">${p.cost} COINS</span>
-                        <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">GET</button>
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="card flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <img src="${p.img}" class="prod-img" alt="${p.name}">
+                        <div>
+                            <h3 class="font-bold text-sm">${p.name}</h3>
+                            <span class="text-yellow-500 font-bold text-xs">${p.cost} COINS</span>
+                        </div>
                     </div>
-                </div>`;
-            }).join('');
+                    <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">GET</button>
+                </div>
+            `).join('');
         }
 
         window.buyNow = (name, cost) => {
             if (uBal >= cost) {
                 update(ref(db, 'users/' + uID), { coins: uBal - cost });
                 push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
-                alert("Order Placed! Check the Bag icon.");
+                alert("Order Placed!");
             } else { alert("Insufficient coins!"); }
         };
 
         window.cancelOrder = (key, refund) => {
-            if(confirm("Cancel and get refund?")) {
+            if(confirm("Cancel this order?")) {
                 remove(ref(db, 'orders/' + uID + '/' + key));
                 update(ref(db, 'users/' + uID), { coins: uBal + refund });
             }
@@ -152,5 +151,4 @@
         window.toggleModal = (show) => { document.getElementById('orderModal').classList.toggle('hidden', !show); };
     </script>
 </body>
-    </html>
-    
+</html>
