@@ -3,47 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAKASHI STORE - PREMIUM</title>
+    <title>KAKASHI STORE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0b0f1a; color: white; font-family: 'Poppins', sans-serif; }
+        body { background-color: #0b0f1a; color: white; font-family: sans-serif; }
         .hidden { display: none; }
         .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 20px; padding: 20px; transition: 0.3s; }
         .card:hover { border-color: #fbbf24; transform: translateY(-5px); }
-        .btn-buy { background: white; color: black; font-weight: bold; padding: 6px 16px; border-radius: 10px; transition: 0.3s; }
-        .btn-buy:hover { background: #fbbf24; }
-        
-        /* Floating Buttons */
-        .float-cart { position: fixed; bottom: 20px; right: 20px; background: #fbbf24; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; items-center; justify-content: center; font-size: 24px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4); z-index: 100; cursor: pointer; }
-        .float-wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; items-center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 100; }
-        
-        /* Modal Style */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; items-center; justify-content: center; z-index: 200; padding: 20px; }
-        .modal-content { background: #161b2c; width: 100%; max-width: 500px; border-radius: 24px; padding: 24px; max-height: 80vh; overflow-y: auto; border: 1px solid #2d334a; }
+        .btn-buy { background: #fbbf24; color: black; font-weight: bold; padding: 6px 20px; border-radius: 12px; }
+        .float-wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 100; }
+        .float-cart { position: fixed; bottom: 25px; right: 20px; background: #fbbf24; color: black; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 100; cursor: pointer; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+        .modal-content { background: #161b2c; width: 100%; max-width: 450px; border-radius: 24px; padding: 24px; max-height: 80vh; overflow-y: auto; }
+        .prod-img { width: 100%; h-32; object-fit: contain; border-radius: 12px; margin-bottom: 12px; background: #0b0f1a; height: 120px; }
     </style>
 </head>
 <body>
 
     <div id="loginArea" class="max-w-md mx-auto mt-20 card text-center mx-4">
-        <h2 class="text-3xl font-black text-yellow-500 mb-2 italic">KAKASHI STORE</h2>
-        <p class="text-gray-400 text-sm mb-6 uppercase tracking-widest">Login to Access Store</p>
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 rounded-xl bg-gray-800 border border-gray-700 outline-none focus:border-yellow-500">
-        <input type="password" id="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-gray-700 outline-none focus:border-yellow-500">
-        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl hover:bg-yellow-400 transition-all uppercase">Enter Store</button>
+        <h2 class="text-3xl font-black text-yellow-500 mb-6 italic">KAKASHI STORE</h2>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 rounded-xl bg-gray-800 border border-gray-700 outline-none">
+        <input type="password" id="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-gray-700 outline-none">
+        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl uppercase">Enter Store</button>
     </div>
 
-    <div id="storeArea" class="hidden pb-24">
-        <nav class="flex justify-between items-center p-6 sticky top-0 bg-[#0b0f1a]/80 backdrop-blur-md z-50 border-b border-gray-800">
-            <h1 class="text-2xl font-black text-yellow-500 italic">KAKASHI<span class="text-white">STORE</span></h1>
+    <div id="storeArea" class="hidden pb-32">
+        <nav class="flex justify-between items-center p-6 sticky top-0 bg-[#0b0f1a]/90 backdrop-blur-md z-50 border-b border-gray-800">
+            <h1 class="text-2xl font-black text-yellow-500 italic uppercase">Kakashi Store</h1>
             <div class="bg-yellow-500 text-black px-4 py-1.5 rounded-xl font-bold flex items-center shadow-lg">
                 <i class="fas fa-coins mr-2"></i> <span id="balance">...</span>
             </div>
         </nav>
 
-        <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div id="productGrid" class="contents"></div>
-        </div>
+        <div id="productGrid" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
         <a href="https://wa.me/94719609238" target="_blank" class="float-wa"><i class="fab fa-whatsapp"></i></a>
         <div class="float-cart" onclick="toggleModal(true)"><i class="fas fa-shopping-bag"></i></div>
@@ -51,11 +44,10 @@
         <div id="orderModal" class="modal hidden">
             <div class="modal-content">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">My Inbox / Orders</h2>
-                    <button onclick="toggleModal(false)" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">My Inbox</h2>
+                    <button onclick="toggleModal(false)" class="text-gray-400 text-3xl">&times;</button>
                 </div>
-                <div id="ordersList" class="space-y-4">
-                    </div>
+                <div id="ordersList" class="space-y-4"></div>
             </div>
         </div>
     </div>
@@ -79,14 +71,16 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
+        // பொருட்கள் பட்டியல் - இங்கே நீங்கள் புகைப்படப் பெயர்களை மாற்றலாம்
         const products = [
-            { name: "Capcut Pro", cost: 100, img: "https://img.utdstc.com/icon/90b/656/90b65646399990885f6e3c0b9383842c0f99475459345c26b856a42a0335f60e:200" },
-            { name: "Netflix Premium", cost: 500, img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" },
-            { name: "Spotify Premium", cost: 300, img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo-without-text.svg" },
-            { name: "Lightroom Premium", cost: 200, img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg" },
-            { name: "FF Diamond 100", cost: 150, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" },
-            { name: "FF Diamond 200", cost: 280, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" },
-            { name: "FF Diamond 300", cost: 400, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" }
+            { name: "Remote Car", cost: 1500, img: "car.jpg" },
+            { name: "FF Diamond 100", cost: 150, img: "ff100.jpg" },
+            { name: "FF Diamond 200", cost: 280, img: "ff200.jpg" },
+            { name: "FF Diamond 300", cost: 400, img: "ff300.jpg" },
+            { name: "Capcut Pro", cost: 100, img: "capcut.jpg" },
+            { name: "Netflix Premium", cost: 500, img: "netflix.jpg" },
+            { name: "Spotify Premium", cost: 300, img: "spotify.jpg" },
+            { name: "Lightroom Premium", cost: 200, img: "lightroom.jpg" }
         ];
 
         let uBal = 0; let uID = null;
@@ -94,7 +88,7 @@
         window.login = () => {
             const e = document.getElementById('email').value;
             const p = document.getElementById('password').value;
-            if(!e || !p) return alert("Fill all fields");
+            if(!e || !p) return alert("Please login");
             signInWithEmailAndPassword(auth, e, p).catch(() => createUserWithEmailAndPassword(auth, e, p));
         };
 
@@ -104,42 +98,35 @@
                 document.getElementById('loginArea').classList.add('hidden');
                 document.getElementById('storeArea').classList.remove('hidden');
                 loadStore();
-                
                 onValue(ref(db, 'users/' + uID), (snap) => {
                     uBal = snap.val() ? snap.val().coins : 500;
-                    if(!snap.val()) set(ref(db, 'users/' + uID), { coins: 500 });
                     document.getElementById('balance').innerText = uBal;
                 });
-
                 onValue(ref(db, 'orders/' + uID), (snap) => {
                     const list = document.getElementById('ordersList');
                     list.innerHTML = "";
                     if(snap.val()) {
                         Object.entries(snap.val()).reverse().forEach(([key, order]) => {
                             const isPending = order.status === "Pending";
-                            list.innerHTML += `
-                                <div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'}">
-                                    <div class="flex justify-between">
-                                        <p class="font-bold text-white">${order.item}</p>
-                                        <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">${order.status}</p>
-                                    </div>
-                                    <div class="mt-2 text-sm text-gray-400 bg-black/40 p-2 rounded">${order.delivery || '⏳ Admin Processing...'}</div>
-                                    ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-3 text-red-500 text-xs font-bold uppercase hover:underline">Cancel Order & Refund</button>` : ''}
-                                </div>`;
+                            list.innerHTML += `<div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'} p-4">
+                                <p class="font-bold text-white">${order.item}</p>
+                                <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">${order.status}</p>
+                                <div class="mt-2 text-sm text-gray-300 bg-black/40 p-2 rounded">${order.delivery || 'Processing...'}</div>
+                                ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-2 text-red-500 text-xs font-bold uppercase">Cancel & Refund</button>` : ''}
+                            </div>`;
                         });
-                    } else { list.innerHTML = "<p class='text-center text-gray-500 py-10'>No orders yet!</p>"; }
+                    } else { list.innerHTML = "<p class='text-center text-gray-500'>Your bag is empty.</p>"; }
                 });
             }
         });
 
         function loadStore() {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = products.map(p => `
-                <div class="card">
-                    <img src="${p.img}" class="w-14 h-14 rounded-xl mb-4">
-                    <h3 class="font-bold text-lg">${p.name}</h3>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="text-yellow-500 font-black">${p.cost} <small class="text-[10px]">COINS</small></span>
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="card text-center">
+                    <img src="${p.img}" class="prod-img" alt="${p.name}">
+                    <h3 class="font-bold text-lg mb-4">${p.name}</h3>
+                    <div class="flex justify-between items-center mt-2 border-t border-gray-800 pt-4">
+                        <span class="text-yellow-500 font-black">${p.cost} COINS</span>
                         <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">GET</button>
                     </div>
                 </div>
@@ -148,24 +135,21 @@
 
         window.buyNow = (name, cost) => {
             if (uBal >= cost) {
-                const newB = uBal - cost;
-                update(ref(db, 'users/' + uID), { coins: newB });
+                update(ref(db, 'users/' + uID), { coins: uBal - cost });
                 push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
-                alert("Order Placed! Check Shopping Bag.");
+                alert("Order Placed!");
             } else { alert("Insufficient coins!"); }
         };
 
-        window.cancelOrder = (orderKey, refundAmount) => {
-            if(confirm("Do you want to cancel this order and get a refund?")) {
-                remove(ref(db, 'orders/' + uID + '/' + orderKey));
-                update(ref(db, 'users/' + uID), { coins: uBal + refundAmount });
-                alert("Order Cancelled! Coins Refunded.");
+        window.cancelOrder = (key, refund) => {
+            if(confirm("Cancel this order?")) {
+                remove(ref(db, 'orders/' + uID + '/' + key));
+                update(ref(db, 'users/' + uID), { coins: uBal + refund });
             }
         };
 
-        window.toggleModal = (show) => {
-            document.getElementById('orderModal').classList.toggle('hidden', !show);
-        };
+        window.toggleModal = (show) => { document.getElementById('orderModal').classList.toggle('hidden', !show); };
     </script>
 </body>
-</html>
+    </html>
+    
