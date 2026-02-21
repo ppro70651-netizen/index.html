@@ -9,94 +9,126 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; background-color: #0b0f1a; color: #ffffff; }
+        .hidden { display: none; }
         .store-card { background: #161b2c; border: 1px solid #2d334a; transition: all 0.3s ease; border-radius: 24px; padding: 24px; }
         .store-card:hover { border-color: #fbbf24; transform: scale(1.02); }
+        input { background: #1f2937; border: 1px solid #374151; color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center p-6 border-b border-gray-800 sticky top-0 bg-[#0b0f1a] z-50 shadow-2xl">
-        <h1 class="text-2xl font-black text-yellow-500 tracking-tighter">KAKASHI<span class="text-white uppercase">Store</span></h1>
-        <div class="bg-yellow-500 text-black px-5 py-2 rounded-xl font-bold flex items-center shadow-lg">
-            <i class="fas fa-coins mr-2"></i> Credits: <span id="userBalance" class="ml-1 italic font-black text-lg text-black">500</span>
+    <div id="loginSection" class="min-h-screen flex items-center justify-center px-6">
+        <div class="max-w-md w-full bg-[#161b2c] p-10 rounded-3xl border border-gray-800 shadow-2xl text-center">
+            <h1 class="text-3xl font-black text-yellow-500 mb-2 italic">KAKASHI STORE</h1>
+            <p class="text-gray-400 mb-8 text-sm uppercase tracking-widest">Secure Login</p>
+            <input type="email" id="email" placeholder="Enter Email">
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="handleAuth()" class="w-full bg-yellow-500 text-black font-bold py-3 rounded-xl hover:bg-yellow-400 transition-all uppercase">Login / Register</button>
+            <p class="text-[10px] text-gray-600 mt-6 italic">New users get 500 free credits on first login.</p>
         </div>
-    </nav>
+    </div>
 
-    <main class="container mx-auto px-6 py-12">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 italic uppercase tracking-widest text-white">Premium Store</h2>
-            <p class="text-gray-400">Secure transactions and instant delivery via WhatsApp.</p>
-        </div>
+    <div id="storeSection" class="hidden">
+        <nav class="flex justify-between items-center p-6 border-b border-gray-800 sticky top-0 bg-[#0b0f1a] z-50">
+            <h1 class="text-2xl font-black text-yellow-500 italic">KAKASHI<span class="text-white">STORE</span></h1>
+            <div class="bg-yellow-500 text-black px-5 py-2 rounded-xl font-bold flex items-center shadow-lg">
+                <i class="fas fa-coins mr-2"></i> Credits: <span id="userBalance" class="ml-1 text-lg">...</span>
+            </div>
+        </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="store-card">
-                <img src="capcut.jpg" class="w-full h-44 object-cover rounded-2xl mb-6 shadow-xl border border-gray-700">
-                <h3 class="text-xl font-bold mb-2">CapCut Pro</h3>
-                <p class="text-gray-400 text-sm mb-6 font-light">30 Days Full Access with 4K Export.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-bold text-yellow-500">100 <span class="text-xs text-gray-400 font-normal">Coins</span></span>
-                    <button onclick="handlePurchase('CapCut Pro', 100)" class="bg-white text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-500 transition-all">Get Now</button>
+        <main class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="store-card">
+                    <img src="capcut.jpg" class="w-full h-44 object-cover rounded-2xl mb-6 shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-2">CapCut Pro</h3>
+                    <p class="text-gray-400 text-sm mb-6">Premium editing tools & 4K export access.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-yellow-500">100 <span class="text-xs text-gray-500">COINS</span></span>
+                        <button onclick="makePurchase('CapCut Pro', 100)" class="bg-white text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-500 transition-all">Get Now</button>
+                    </div>
+                </div>
+
+                <div class="store-card">
+                    <img src="picsart.jpg" class="w-full h-44 object-cover rounded-2xl mb-6 shadow-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-2">PicsArt Gold</h3>
+                    <p class="text-gray-400 text-sm mb-6">Full AI tools and premium asset access.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-yellow-500">150 <span class="text-xs text-gray-500">COINS</span></span>
+                        <button onclick="makePurchase('PicsArt Gold', 150)" class="bg-white text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-500 transition-all">Get Now</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="store-card">
-                <img src="picsart.jpg" class="w-full h-44 object-cover rounded-2xl mb-6 shadow-xl border border-gray-700">
-                <h3 class="text-xl font-bold mb-2">PicsArt Gold</h3>
-                <p class="text-gray-400 text-sm mb-6 font-light">AI Tools & Premium Assets Unlocked.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-bold text-yellow-500">150 <span class="text-xs text-gray-400 font-normal">Coins</span></span>
-                    <button onclick="handlePurchase('PicsArt Gold', 150)" class="bg-white text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-500 transition-all">Get Now</button>
-                </div>
-            </div>
-
-            <div class="store-card">
-                <img src="lightroom.jpg" class="w-full h-44 object-cover rounded-2xl mb-6 shadow-xl border border-gray-700">
-                <h3 class="text-xl font-bold mb-2">Lightroom Pro</h3>
-                <p class="text-gray-400 text-sm mb-6 font-light">Advanced Photo Color Grading Tools.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-bold text-yellow-500">120 <span class="text-xs text-gray-400 font-normal">Coins</span></span>
-                    <button onclick="handlePurchase('Lightroom Pro', 120)" class="bg-white text-black px-6 py-2 rounded-xl font-bold hover:bg-yellow-500 transition-all">Get Now</button>
-                </div>
-            </div>
-
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Your Config
+        // Your Exact Config
         const firebaseConfig = {
             apiKey: "AIzaSyD7rEDSVBRoG_fllOTorAZNt-bXau0qIDI",
             authDomain: "kakashi-store.firebaseapp.com",
             projectId: "kakashi-store",
+            databaseURL: "https://kakashi-store-default-rtdb.firebaseio.com",
             storageBucket: "kakashi-store.firebasestorage.app",
             messagingSenderId: "771931107154",
-            appId: "1:771931107154:web:3ba8f14b52516b4012148b",
-            measurementId: "G-Z6YJEWL9ZM"
+            appId: "1:771931107154:web:3ba8f14b52516b4012148b"
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
 
-        let balance = 500; // Starting Balance
-        document.getElementById('userBalance').innerText = balance;
+        let currentBalance = 0;
+        let loggedUser = null;
 
-        window.handlePurchase = function(itemName, cost) {
-            if (balance >= cost) {
-                balance -= cost;
-                document.getElementById('userBalance').innerText = balance;
-                
-                alert("Order Placed: " + itemName + "\nYour balance is now " + balance + " Coins.");
-                
-                const message = `Order Request: ${itemName} | Balance Left: ${balance}`;
-                window.location.href = `https://wa.me/94719609238?text=${encodeURIComponent(message)}`;
+        // Login / Signup Logic
+        window.handleAuth = () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if(!email || !password) return alert("Please enter email and password");
+
+            signInWithEmailAndPassword(auth, email, password)
+                .catch(() => createUserWithEmailAndPassword(auth, email, password))
+                .catch(error => alert("Error: " + error.message));
+        };
+
+        // User State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loggedUser = user;
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('storeSection').classList.remove('hidden');
+
+                // Sync with Realtime Database
+                const userRef = ref(db, 'users/' + user.uid);
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        currentBalance = data.coins;
+                    } else {
+                        currentBalance = 500; // Gift for new users
+                        set(ref(db, 'users/' + user.uid), { coins: 500 });
+                    }
+                    document.getElementById('userBalance').innerText = currentBalance;
+                });
+            }
+        });
+
+        // Purchase Handler
+        window.makePurchase = (name, cost) => {
+            if (currentBalance >= cost) {
+                const newBalance = currentBalance - cost;
+                update(ref(db, 'users/' + loggedUser.uid), { coins: newBalance });
+                alert("Order Placed for " + name + "!");
+                window.location.href = `https://wa.me/94719609238?text=ORDER_SUCCESS%0AItem:${name}%0ANewBalance:${newBalance}`;
             } else {
-                alert("Insufficient Coins! Contact admin to buy more.");
+                alert("Insufficient Credits! Please contact admin to recharge.");
             }
         };
     </script>
 </body>
-</html>
+                </html>
+                
