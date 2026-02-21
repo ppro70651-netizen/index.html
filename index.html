@@ -10,13 +10,11 @@
         body { background-color: #0b0f1a; color: white; font-family: sans-serif; }
         .hidden { display: none; }
         .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 20px; padding: 20px; transition: 0.3s; }
-        .card:hover { border-color: #fbbf24; transform: translateY(-5px); }
         .btn-buy { background: #fbbf24; color: black; font-weight: bold; padding: 6px 20px; border-radius: 12px; }
         .float-wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 100; }
         .float-cart { position: fixed; bottom: 25px; right: 20px; background: #fbbf24; color: black; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 100; cursor: pointer; }
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
         .modal-content { background: #161b2c; width: 100%; max-width: 450px; border-radius: 24px; padding: 24px; max-height: 80vh; overflow-y: auto; }
-        .prod-img { width: 100%; h-32; object-fit: contain; border-radius: 12px; margin-bottom: 12px; background: #0b0f1a; height: 120px; }
     </style>
 </head>
 <body>
@@ -25,7 +23,7 @@
         <h2 class="text-3xl font-black text-yellow-500 mb-6 italic">KAKASHI STORE</h2>
         <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 rounded-xl bg-gray-800 border border-gray-700 outline-none">
         <input type="password" id="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-gray-700 outline-none">
-        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl uppercase">Enter Store</button>
+        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl uppercase">Login</button>
     </div>
 
     <div id="storeArea" class="hidden pb-32">
@@ -44,7 +42,7 @@
         <div id="orderModal" class="modal hidden">
             <div class="modal-content">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">My Inbox</h2>
+                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">Your Orders</h2>
                     <button onclick="toggleModal(false)" class="text-gray-400 text-3xl">&times;</button>
                 </div>
                 <div id="ordersList" class="space-y-4"></div>
@@ -71,16 +69,16 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // பொருட்கள் பட்டியல் - இங்கே நீங்கள் புகைப்படப் பெயர்களை மாற்றலாம்
+        // பொருட்களை இங்கே மாற்றலாம்
         const products = [
-            { name: "Remote Car", cost: 1500, img: "car.jpg" },
-            { name: "FF Diamond 100", cost: 150, img: "ff100.jpg" },
-            { name: "FF Diamond 200", cost: 280, img: "ff200.jpg" },
-            { name: "FF Diamond 300", cost: 400, img: "ff300.jpg" },
-            { name: "Capcut Pro", cost: 100, img: "capcut.jpg" },
-            { name: "Netflix Premium", cost: 500, img: "netflix.jpg" },
-            { name: "Spotify Premium", cost: 300, img: "spotify.jpg" },
-            { name: "Lightroom Premium", cost: 200, img: "lightroom.jpg" }
+            { name: "Remote Car", cost: 1500, img: "car.jpg" }, // இதற்கு படம் வரும்
+            { name: "Capcut Pro", cost: 100, icon: "fas fa-video" }, // மற்றவைக்கு ஐகான்
+            { name: "Netflix Premium", cost: 500, icon: "fas fa-tv" },
+            { name: "Spotify Premium", cost: 300, icon: "fas fa-music" },
+            { name: "Lightroom Premium", cost: 200, icon: "fas fa-camera" },
+            { name: "FF Diamond 100", cost: 150, icon: "fas fa-gem" },
+            { name: "FF Diamond 200", cost: 280, icon: "fas fa-gem" },
+            { name: "FF Diamond 300", cost: 400, icon: "fas fa-gem" }
         ];
 
         let uBal = 0; let uID = null;
@@ -88,7 +86,7 @@
         window.login = () => {
             const e = document.getElementById('email').value;
             const p = document.getElementById('password').value;
-            if(!e || !p) return alert("Please login");
+            if(!e || !p) return alert("Fill all details");
             signInWithEmailAndPassword(auth, e, p).catch(() => createUserWithEmailAndPassword(auth, e, p));
         };
 
@@ -110,39 +108,42 @@
                             const isPending = order.status === "Pending";
                             list.innerHTML += `<div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'} p-4">
                                 <p class="font-bold text-white">${order.item}</p>
-                                <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">${order.status}</p>
-                                <div class="mt-2 text-sm text-gray-300 bg-black/40 p-2 rounded">${order.delivery || 'Processing...'}</div>
-                                ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-2 text-red-500 text-xs font-bold uppercase">Cancel & Refund</button>` : ''}
+                                <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">Status: ${order.status}</p>
+                                <div class="mt-2 text-sm text-gray-300 bg-black/40 p-2 rounded">${order.delivery || 'Waiting for Admin...'}</div>
+                                ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-2 text-red-500 text-xs font-bold uppercase hover:underline">Cancel & Refund</button>` : ''}
                             </div>`;
                         });
-                    } else { list.innerHTML = "<p class='text-center text-gray-500'>Your bag is empty.</p>"; }
+                    } else { list.innerHTML = "<p class='text-center text-gray-500'>No orders yet.</p>"; }
                 });
             }
         });
 
         function loadStore() {
-            document.getElementById('productGrid').innerHTML = products.map(p => `
-                <div class="card text-center">
-                    <img src="${p.img}" class="prod-img" alt="${p.name}">
-                    <h3 class="font-bold text-lg mb-4">${p.name}</h3>
+            document.getElementById('productGrid').innerHTML = products.map(p => {
+                const media = p.img 
+                    ? `<img src="${p.img}" class="w-full h-32 object-contain mb-4 rounded-lg bg-gray-800">` 
+                    : `<div class="text-4xl mb-4 text-yellow-500"><i class="${p.icon}"></i></div>`;
+                return `<div class="card text-center">
+                    ${media}
+                    <h3 class="font-bold text-xl mb-4">${p.name}</h3>
                     <div class="flex justify-between items-center mt-2 border-t border-gray-800 pt-4">
                         <span class="text-yellow-500 font-black">${p.cost} COINS</span>
                         <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">GET</button>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
         window.buyNow = (name, cost) => {
             if (uBal >= cost) {
                 update(ref(db, 'users/' + uID), { coins: uBal - cost });
                 push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
-                alert("Order Placed!");
+                alert("Order Placed! Check the Bag icon.");
             } else { alert("Insufficient coins!"); }
         };
 
         window.cancelOrder = (key, refund) => {
-            if(confirm("Cancel this order?")) {
+            if(confirm("Cancel and get refund?")) {
                 remove(ref(db, 'orders/' + uID + '/' + key));
                 update(ref(db, 'users/' + uID), { coins: uBal + refund });
             }
