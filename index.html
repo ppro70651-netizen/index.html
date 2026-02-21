@@ -5,80 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAKASHI STORE - PREMIUM</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0b0f1a; color: white; font-family: sans-serif; }
+        body { background-color: #0b0f1a; color: white; font-family: 'Poppins', sans-serif; }
         .hidden { display: none; }
         .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 20px; padding: 20px; transition: 0.3s; }
         .card:hover { border-color: #fbbf24; transform: translateY(-5px); }
-        .btn-buy { background: white; color: black; font-weight: bold; padding: 5px 15px; rounded-radius: 8px; transition: 0.3s; }
+        .btn-buy { background: white; color: black; font-weight: bold; padding: 6px 16px; border-radius: 10px; transition: 0.3s; }
         .btn-buy:hover { background: #fbbf24; }
+        
+        /* Floating Buttons */
+        .float-cart { position: fixed; bottom: 20px; right: 20px; background: #fbbf24; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; items-center; justify-content: center; font-size: 24px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4); z-index: 100; cursor: pointer; }
+        .float-wa { position: fixed; bottom: 90px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; items-center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 100; }
+        
+        /* Modal Style */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; items-center; justify-content: center; z-index: 200; padding: 20px; }
+        .modal-content { background: #161b2c; width: 100%; max-width: 500px; border-radius: 24px; padding: 24px; max-height: 80vh; overflow-y: auto; border: 1px solid #2d334a; }
     </style>
 </head>
-<body class="p-4">
+<body>
 
-    <div id="loginArea" class="max-w-md mx-auto mt-20 card text-center shadow-2xl">
-        <h2 class="text-2xl font-black text-yellow-500 mb-6 italic">KAKASHI STORE</h2>
-        <input type="email" id="email" placeholder="Email" class="w-full p-3 mb-4 rounded bg-gray-800 border border-gray-700">
-        <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-6 rounded bg-gray-800 border border-gray-700">
-        <button onclick="login()" class="w-full bg-yellow-500 text-black font-bold p-3 rounded-xl">LOGIN</button>
+    <div id="loginArea" class="max-w-md mx-auto mt-20 card text-center mx-4">
+        <h2 class="text-3xl font-black text-yellow-500 mb-2 italic">KAKASHI STORE</h2>
+        <p class="text-gray-400 text-sm mb-6 uppercase tracking-widest">Login to Access Store</p>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 rounded-xl bg-gray-800 border border-gray-700 outline-none focus:border-yellow-500">
+        <input type="password" id="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-gray-700 outline-none focus:border-yellow-500">
+        <button onclick="login()" class="w-full bg-yellow-500 text-black font-black p-4 rounded-xl hover:bg-yellow-400 transition-all uppercase">Enter Store</button>
     </div>
 
-    <div id="storeArea" class="hidden">
-        <nav class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
-            <h1 class="text-xl font-bold text-yellow-500 italic">KAKASHI STORE</h1>
-            <div class="bg-yellow-500 text-black px-4 py-1 rounded-lg font-bold shadow-lg">
-                Credits: <span id="balance">0</span>
+    <div id="storeArea" class="hidden pb-24">
+        <nav class="flex justify-between items-center p-6 sticky top-0 bg-[#0b0f1a]/80 backdrop-blur-md z-50 border-b border-gray-800">
+            <h1 class="text-2xl font-black text-yellow-500 italic">KAKASHI<span class="text-white">STORE</span></h1>
+            <div class="bg-yellow-500 text-black px-4 py-1.5 rounded-xl font-bold flex items-center shadow-lg">
+                <i class="fas fa-coins mr-2"></i> <span id="balance">...</span>
             </div>
         </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="card">
-                <img src="https://img.utdstc.com/icon/90b/656/90b65646399990885f6e3c0b9383842c0f99475459345c26b856a42a0335f60e:200" class="w-16 h-16 rounded-xl mb-4">
-                <h3 class="font-bold text-lg">CapCut Pro</h3>
-                <p class="text-gray-400 text-sm mb-4">Premium editing tools access.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-yellow-500 font-bold">100 Coins</span>
-                    <button onclick="buyNow('CapCut Pro', 100)" class="btn-buy rounded-lg">Get Now</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" class="w-16 h-16 rounded-xl mb-4">
-                <h3 class="font-bold text-lg">Netflix Premium</h3>
-                <p class="text-gray-400 text-sm mb-4">1 Month 4K UHD Profile.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-yellow-500 font-bold">500 Coins</span>
-                    <button onclick="buyNow('Netflix Premium', 500)" class="btn-buy rounded-lg">Get Now</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo-without-text.svg" class="w-16 h-16 rounded-xl mb-4">
-                <h3 class="font-bold text-lg">Spotify Premium</h3>
-                <p class="text-gray-400 text-sm mb-4">Individual Plan 1 Month.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-yellow-500 font-bold">300 Coins</span>
-                    <button onclick="buyNow('Spotify Premium', 300)" class="btn-buy rounded-lg">Get Now</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" class="w-16 h-16 rounded-xl mb-4">
-                <h3 class="font-bold text-lg">FF 100 Diamonds</h3>
-                <p class="text-gray-400 text-sm mb-4">Direct Top-up via Player ID.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-yellow-500 font-bold">250 Coins</span>
-                    <button onclick="buyNow('FF 100 Diamonds', 250)" class="btn-buy rounded-lg">Get Now</button>
-                </div>
-            </div>
-
+        <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="productGrid" class="contents"></div>
         </div>
 
-        <div class="mt-12 bg-[#111827] p-6 rounded-3xl border border-gray-800">
-            <h2 class="text-xl font-bold text-yellow-500 mb-6 italic uppercase">My Orders / Inbox</h2>
-            <div id="ordersList" class="space-y-4">
-                <p class="text-gray-500 italic">No orders yet.</p>
+        <a href="https://wa.me/94719609238" target="_blank" class="float-wa"><i class="fab fa-whatsapp"></i></a>
+        <div class="float-cart" onclick="toggleModal(true)"><i class="fas fa-shopping-bag"></i></div>
+
+        <div id="orderModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-yellow-500 italic uppercase">My Inbox / Orders</h2>
+                    <button onclick="toggleModal(false)" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                </div>
+                <div id="ordersList" class="space-y-4">
+                    </div>
             </div>
         </div>
     </div>
@@ -86,7 +63,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, onValue, set, update, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue, set, update, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD7rEDSVBRoG_fllOTorAZNt-bXau0qIDI",
@@ -102,11 +79,22 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
+        const products = [
+            { name: "Capcut Pro", cost: 100, img: "https://img.utdstc.com/icon/90b/656/90b65646399990885f6e3c0b9383842c0f99475459345c26b856a42a0335f60e:200" },
+            { name: "Netflix Premium", cost: 500, img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Netflix-new-icon.png" },
+            { name: "Spotify Premium", cost: 300, img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo-without-text.svg" },
+            { name: "Lightroom Premium", cost: 200, img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg" },
+            { name: "FF Diamond 100", cost: 150, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" },
+            { name: "FF Diamond 200", cost: 280, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" },
+            { name: "FF Diamond 300", cost: 400, img: "https://dl.dir.freefiremobile.com/common/web_event/official_site/logo_2022.png" }
+        ];
+
         let uBal = 0; let uID = null;
 
         window.login = () => {
             const e = document.getElementById('email').value;
             const p = document.getElementById('password').value;
+            if(!e || !p) return alert("Fill all fields");
             signInWithEmailAndPassword(auth, e, p).catch(() => createUserWithEmailAndPassword(auth, e, p));
         };
 
@@ -115,6 +103,7 @@
                 uID = user.uid;
                 document.getElementById('loginArea').classList.add('hidden');
                 document.getElementById('storeArea').classList.remove('hidden');
+                loadStore();
                 
                 onValue(ref(db, 'users/' + uID), (snap) => {
                     uBal = snap.val() ? snap.val().coins : 500;
@@ -126,33 +115,56 @@
                     const list = document.getElementById('ordersList');
                     list.innerHTML = "";
                     if(snap.val()) {
-                        Object.values(snap.val()).reverse().forEach(order => {
-                            const statusColor = order.status === "Success" ? "text-green-500" : "text-yellow-500";
-                            list.innerHTML += `<div class="card bg-[#1f2937] border-l-4 border-yellow-500">
-                                <p class="font-bold text-white text-lg">${order.item}</p>
-                                <p class="text-sm ${statusColor} font-bold mt-1">Status: ${order.status}</p>
-                                <div class="bg-black/30 p-3 rounded-lg mt-3 border border-gray-700">
-                                    <p class="text-yellow-500 font-mono text-sm">${order.delivery || '⏳ Processing by Admin...'}</p>
-                                </div>
-                            </div>`;
+                        Object.entries(snap.val()).reverse().forEach(([key, order]) => {
+                            const isPending = order.status === "Pending";
+                            list.innerHTML += `
+                                <div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'}">
+                                    <div class="flex justify-between">
+                                        <p class="font-bold text-white">${order.item}</p>
+                                        <p class="text-xs ${isPending ? 'text-yellow-500' : 'text-green-500'} font-bold">${order.status}</p>
+                                    </div>
+                                    <div class="mt-2 text-sm text-gray-400 bg-black/40 p-2 rounded">${order.delivery || '⏳ Admin Processing...'}</div>
+                                    ${isPending ? `<button onclick="cancelOrder('${key}', ${order.cost})" class="mt-3 text-red-500 text-xs font-bold uppercase hover:underline">Cancel Order & Refund</button>` : ''}
+                                </div>`;
                         });
-                    } else { list.innerHTML = "<p class='text-gray-500 text-center py-4'>You haven't purchased anything yet.</p>"; }
+                    } else { list.innerHTML = "<p class='text-center text-gray-500 py-10'>No orders yet!</p>"; }
                 });
             }
         });
+
+        function loadStore() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.map(p => `
+                <div class="card">
+                    <img src="${p.img}" class="w-14 h-14 rounded-xl mb-4">
+                    <h3 class="font-bold text-lg">${p.name}</h3>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-yellow-500 font-black">${p.cost} <small class="text-[10px]">COINS</small></span>
+                        <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">GET</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
         window.buyNow = (name, cost) => {
             if (uBal >= cost) {
                 const newB = uBal - cost;
                 update(ref(db, 'users/' + uID), { coins: newB });
-                push(ref(db, 'orders/' + uID), {
-                    item: name,
-                    status: "Pending",
-                    delivery: "",
-                    timestamp: Date.now()
-                });
-                alert("Order Placed Successfully! ✅\nCheck 'My Orders' section.");
-            } else { alert("❌ Not enough coins! Please contact Admin to recharge."); }
+                push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
+                alert("Order Placed! Check Shopping Bag.");
+            } else { alert("Insufficient coins!"); }
+        };
+
+        window.cancelOrder = (orderKey, refundAmount) => {
+            if(confirm("Do you want to cancel this order and get a refund?")) {
+                remove(ref(db, 'orders/' + uID + '/' + orderKey));
+                update(ref(db, 'users/' + uID), { coins: uBal + refundAmount });
+                alert("Order Cancelled! Coins Refunded.");
+            }
+        };
+
+        window.toggleModal = (show) => {
+            document.getElementById('orderModal').classList.toggle('hidden', !show);
         };
     </script>
 </body>
