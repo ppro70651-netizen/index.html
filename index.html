@@ -168,12 +168,23 @@
         };
 
         window.submitRequest = () => {
-            const file = document.getElementById('receiptFile').value;
-            if(!file) return alert("Please upload receipt screenshot!");
-            push(ref(db, 'admin_requests'), { user: uEmail, uid: uID, status: "Pending", time: Date.now() });
-            alert("Recharge request sent to Admin!");
-            toggleCoinModal(false);
-        };
+    const fileInput = document.getElementById('receiptFile');
+    if(fileInput.files.length === 0) return alert("Please select a screenshot first!");
+
+    const myNumber = "94719609238"; 
+    const msg = `PAYMENT RECEIPT: 
+Email: ${uEmail}
+I have sent the payment. Please verify and add coins to my account.`;
+    
+    const waLink = `https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`;
+    
+    push(ref(db, 'admin_requests'), { user: uEmail, uid: uID, status: "Pending", time: Date.now() });
+
+    alert("Opening WhatsApp... Please attach your screenshot and send.");
+    window.open(waLink, '_blank');
+    toggleCoinModal(false);
+};
+
 
         window.toggleModal = (show) => { document.getElementById('orderModal').classList.toggle('hidden', !show); };
         window.toggleCoinModal = (show) => { document.getElementById('coinModal').classList.toggle('hidden', !show); };
