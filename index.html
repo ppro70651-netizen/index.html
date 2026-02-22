@@ -59,11 +59,9 @@
                     <p>Name: KAKASHI STORE</p>
                     <hr class="border-gray-800 my-2">
                     <p class="text-yellow-500 font-bold uppercase">Price List:</p>
-                    <p>100 Coins = 100 LKR</p>
-                    <p>1$ = 300 Coins</p>
-            
+                    <p>$1 = 300 Coins</p>
                 </div>
-                <p class="text-[10px] text-gray-400 mb-2 italic">Upload Payment Receipt / Screenshot:</p>
+                <p class="text-[10px] text-gray-400 mb-2 italic">Select receipt/screenshot to proceed:</p>
                 <input type="file" id="receiptFile" class="text-xs text-gray-400 mb-4 w-full">
                 <button onclick="submitRequest()" class="w-full bg-blue-600 text-white font-bold p-3 rounded-lg text-sm uppercase">Submit Request</button>
             </div>
@@ -100,7 +98,7 @@
         const db = getDatabase(app);
 
         const products = [
-{ name: "HG Cheats Key", cost: 150, img: "ff1.jpg" },
+            { name: "HG Cheats Key", cost: 150, img: "ff1.jpg" },
             { name: "BR Mods Key", cost: 280, img: "ff2.jpg" },
             { name: "PicsArt Premium", cost: 400, img: "picsart.jpg" },
             { name: "Capcut Pro", cost: 100, img: "capcut.jpg" },
@@ -164,31 +162,30 @@
                 update(ref(db, 'users/' + uID), { coins: uBal - cost });
                 push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
                 alert("Order Placed Successfully!");
-            } else { alert("Insufficient coins! Please Recharge."); }
+            } else { alert("Insufficient coins! Please Top Up."); }
         };
 
         window.submitRequest = () => {
-    const fileInput = document.getElementById('receiptFile');
-    if(fileInput.files.length === 0) return alert("Please select a screenshot first!");
+            const fileInput = document.getElementById('receiptFile');
+            if(fileInput.files.length === 0) return alert("Please select a screenshot first!");
 
-    const myNumber = "94719609238"; 
-    const msg = `PAYMENT RECEIPT: 
+            const myNumber = "94719609238"; 
+            const msg = `PAYMENT RECEIPT: 
 Email: ${uEmail}
 I have sent the payment. Please verify and add coins to my account.`;
-    
-    const waLink = `https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`;
-    
-    push(ref(db, 'admin_requests'), { user: uEmail, uid: uID, status: "Pending", time: Date.now() });
+            
+            const waLink = `https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`;
+            
+            push(ref(db, 'admin_requests'), { user: uEmail, uid: uID, status: "Pending", time: Date.now() });
 
-    alert("Opening WhatsApp... Please attach your screenshot and send.");
-    window.open(waLink, '_blank');
-    toggleCoinModal(false);
-};
-
+            alert("Redirecting to WhatsApp. Please attach your screenshot and send.");
+            window.open(waLink, '_blank');
+            toggleCoinModal(false);
+        };
 
         window.toggleModal = (show) => { document.getElementById('orderModal').classList.toggle('hidden', !show); };
         window.toggleCoinModal = (show) => { document.getElementById('coinModal').classList.toggle('hidden', !show); };
     </script>
 </body>
-    </html>
-    
+                    </html>
+                    
