@@ -24,160 +24,122 @@
             scroll-behavior: smooth;
         }
 
-        /* Header Area */
         header {
             text-align: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
             background: radial-gradient(circle at top, #1e293b 0%, #050a15 100%);
         }
 
         header h1 {
-            font-size: 3.5rem;
-            margin: 0;
+            font-size: 3rem;
             color: var(--primary-cyan);
             text-transform: uppercase;
             letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
-        header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
-
-        /* Product Grid */
         .container {
             max-width: 1200px;
-            margin: -60px auto 60px;
+            margin: -40px auto 50px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             padding: 20px;
         }
 
         .product-card {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 20px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
         }
 
-        .product-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--primary-cyan);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--primary-cyan); }
 
-        .product-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 18px;
-            margin-bottom: 20px;
-            background: #000;
-        }
-
-        .product-card h3 { font-size: 1.6rem; margin: 15px 0 10px; color: #fff; }
+        .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; background: #000; }
 
         .description-box {
             background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
             color: #cbd5e1;
-            height: 50px;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin: 15px 0;
+            height: 45px;
         }
 
         .action-btn {
             background: var(--accent-gradient);
             color: #fff;
             border: none;
-            padding: 16px;
+            padding: 14px;
             border-radius: 50px;
             font-weight: 700;
             width: 100%;
             cursor: pointer;
-            transition: 0.3s;
             text-transform: uppercase;
         }
 
-        /* Payment Modal Popup */
+        /* Modal Area */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            z-index: 999;
-            backdrop-filter: blur(8px);
+            z-index: 1000;
         }
 
         .modal-content {
             background: #1e293b;
-            padding: 40px;
-            border-radius: 30px;
+            padding: 30px;
+            border-radius: 25px;
             width: 90%;
-            max-width: 480px;
+            max-width: 450px;
             border: 1px solid var(--primary-cyan);
             text-align: center;
         }
 
-        .payment-section {
+        .payment-box {
             background: #0f172a;
-            padding: 20px;
-            border-radius: 20px;
-            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
             text-align: left;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .payment-section h4 { margin: 0 0 10px; color: var(--primary-cyan); display: flex; align-items: center; gap: 10px; }
-        .payment-row { display: flex; justify-content: space-between; margin: 5px 0; font-size: 0.95rem; }
-        .label { color: #64748b; }
-        .value { color: #fff; font-weight: 600; }
-
-        /* Transaction ID Area */
-        .submit-section {
-            max-width: 700px;
-            margin: 100px auto;
+        /* Internal Chat UI Section */
+        .internal-chat-section {
+            max-width: 600px;
+            margin: 80px auto;
             background: #111827;
-            padding: 50px 30px;
+            padding: 40px;
             border-radius: 30px;
+            border: 1px solid #1e293b;
             text-align: center;
-            border-top: 3px solid var(--primary-cyan);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        #tx-id {
+        #chat-message {
             width: 100%;
-            max-width: 450px;
-            padding: 18px;
+            height: 120px;
+            padding: 15px;
             background: #050a15;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            color: #fff;
+            border: 1px solid var(--primary-cyan);
+            border-radius: 15px;
+            color: white;
             font-size: 1rem;
             margin-bottom: 20px;
-            text-align: center;
+            resize: none;
         }
 
-        /* Floating WhatsApp Icon */
-        .wa-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            z-index: 100;
+        .success-msg {
+            display: none;
+            color: #25d366;
+            margin-top: 15px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -185,106 +147,75 @@
 
 <header>
     <h1>LUPI PREMIUM</h1>
-    <p>Premium Digital Services & Tools Store</p>
+    <p>Exclusive Digital Assets Store</p>
 </header>
 
 <div class="container">
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product1.png" class="product-img">
         <h3>CapCut Pro</h3>
-        <div class="description-box">Full unlocked professional editing features.</div>
+        <div class="description-box">Full Premium Unlocked Features.</div>
         <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
-
-    <div class="product-card">
-        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product2.png" class="product-img">
-        <h3>Canva Pro</h3>
-        <div class="description-box">Millions of premium templates and graphics.</div>
-        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
-
-    <div class="product-card">
-        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product3.png" class="product-img">
-        <h3>Netflix 4K</h3>
-        <div class="description-box">Ultra HD Streaming on multiple devices.</div>
-        <button class="action-btn" onclick="openModal()">Buy Now</button>
-    </div>
-
-    <div class="product-card">
-        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product4.png" class="product-img">
-        <h3>YouTube Premium</h3>
-        <div class="description-box">Ad-free experience with background play.</div>
-        <button class="action-btn" onclick="openModal()">Buy Now</button>
-    </div>
-
-    <div class="product-card">
-        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product5.png" class="product-img">
-        <h3>SMM Services</h3>
-        <div class="description-box">Grow your followers and engagement fast.</div>
-        <button class="action-btn" onclick="openModal()">Buy Now</button>
-    </div>
-
-    <div class="product-card">
-        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product6.png" class="product-img">
-        <h3>Logo Design</h3>
-        <div class="description-box">Custom high-quality brand identity designs.</div>
-        <button class="action-btn" onclick="openModal()">Buy Now</button>
-    </div>
-</div>
 
 <div id="paymentModal" class="modal">
     <div class="modal-content">
-        <h2 style="color: var(--primary-cyan); margin-bottom: 10px;">Payment Details</h2>
-        <p style="margin-bottom: 25px;">Follow these steps to complete your order:</p>
-
-        <div class="payment-section">
-            <h4><i class="fas fa-university"></i> Bank Transfer</h4>
-            <div class="payment-row"><span class="label">Bank:</span> <span class="value">HNB</span></div>
-            <div class="payment-row"><span class="label">Name:</span> <span class="value">KAPILAXSAN</span></div>
-            <div class="payment-row"><span class="label">Account:</span> <span class="value">091020379391</span></div>
+        <h2 style="color: var(--primary-cyan);">Payment Details</h2>
+        <div class="payment-box">
+            <p><strong>Bank:</strong> HNB</p>
+            <p><strong>Account:</strong> 091020379391</p>
+            <p><strong>Name:</strong> KAPILAXSAN</p>
         </div>
-
-        <div class="payment-section">
-            <h4><i class="fas fa-coins"></i> Crypto</h4>
-            <div class="payment-row"><span class="label">Binance ID:</span> <span class="value">1070842052</span></div>
+        <div class="payment-box">
+            <p><strong>Binance ID:</strong> 1070842052</p>
         </div>
-
         <button class="action-btn" onclick="closeAndScroll()">GOT IT</button>
     </div>
 </div>
 
-<div id="chat-ui" class="submit-section">
-    <h3 style="color: var(--primary-cyan);">SUBMIT TRANSACTION ID</h3>
-    <p>Please paste your payment reference number below:</p>
-    <input type="text" id="tx-id" placeholder="Ex: HNB-123456789">
-    <br>
-    <button class="action-btn" style="max-width: 250px;" onclick="sendToWhatsApp()">SUBMIT ID</button>
+<div id="internal-chat" class="internal-chat-section">
+    <h3 style="color: var(--primary-cyan);">ORDER NOTIFICATION CENTER</h3>
+    <p>Submit your Transaction ID & Order Details below:</p>
+    
+    <form action="https://formspree.io/f/உங்கள்_ID_இங்கே" method="POST" id="orderForm">
+        <textarea name="message" id="chat-message" placeholder="Type your Transaction ID and the Product name here..."></textarea>
+        <button type="submit" class="action-btn" style="max-width: 200px;">SUBMIT ORDER</button>
+    </form>
+    
+    <div id="status" class="success-msg">✓ Order Submitted! I will check and deliver your product soon.</div>
 </div>
-
-<a href="https://wa.me/94785862072" class="wa-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
 
 <script>
     function openModal() { document.getElementById("paymentModal").style.display = "flex"; }
     
     function closeAndScroll() {
         document.getElementById("paymentModal").style.display = "none";
-        document.getElementById("chat-ui").scrollIntoView({ behavior: 'smooth' });
-        document.getElementById("tx-id").focus();
+        document.getElementById("internal-chat").scrollIntoView({ behavior: 'smooth' });
     }
 
-    function sendToWhatsApp() {
-        let id = document.getElementById("tx-id").value;
-        if(id === "") {
-            alert("Please enter the Transaction ID first!");
+    // This handles the "Internal" feel
+    var form = document.getElementById("orderForm");
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          status.style.display = "block";
+          form.reset();
         } else {
-            let msg = "Hello LUPI, I have completed the payment. My Transaction ID is: " + id;
-            window.open("https://wa.me/94785862072?text=" + encodeURIComponent(msg), "_blank");
+          alert("Oops! There was a problem submitting your order");
         }
+      });
     }
+    form.addEventListener("submit", handleSubmit);
 </script>
 
 </body>
-            </html>
-    
+                </html>
+                
