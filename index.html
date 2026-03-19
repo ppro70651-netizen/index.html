@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUPI PREMIUM DIGITAL STORE</title>
+    <title>LUPI PREMIUM - Digital Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-blue: #00d4ff;
-            --dark-bg: #0b0f19;
-            --card-bg: #161e2d;
-            --text-glow: 0 0 10px rgba(0, 212, 255, 0.5);
+            --primary-cyan: #00d4ff;
+            --dark-bg: #050a15;
+            --card-bg: #111827;
+            --accent-gradient: linear-gradient(135deg, #00d4ff 0%, #0072ff 100%);
         }
 
         body {
@@ -19,150 +21,163 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
-        /* Header Styling */
+        /* Header Area */
         header {
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(180deg, #161e2d 0%, #0b0f19 100%);
+            padding: 100px 20px;
+            background: radial-gradient(circle at top, #1e293b 0%, #050a15 100%);
         }
 
         header h1 {
             font-size: 3.5rem;
             margin: 0;
-            color: var(--primary-blue);
-            text-shadow: var(--text-glow);
-            letter-spacing: 3px;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
-        /* Grid Container */
+        header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
+
+        /* Product Grid */
         .container {
             max-width: 1200px;
-            margin: -50px auto 50px;
+            margin: -60px auto 60px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             padding: 20px;
         }
 
-        /* Premium Card Design */
         .product-card {
             background: var(--card-bg);
-            border-radius: 25px;
+            border-radius: 24px;
             padding: 25px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .product-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+            transform: translateY(-12px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .product-img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 18px;
             margin-bottom: 20px;
             background: #000;
         }
 
-        .product-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
+        .product-card h3 { font-size: 1.6rem; margin: 15px 0 10px; color: #fff; }
 
-        .description {
-            background: rgba(0,0,0,0.4);
+        .description-box {
+            background: rgba(0,0,0,0.3);
             padding: 15px;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #a0aec0;
-            height: 60px;
+            color: #cbd5e1;
+            height: 50px;
             margin-bottom: 25px;
+            line-height: 1.5;
         }
 
-        .buy-btn {
-            background: linear-gradient(45deg, #00d4ff, #0072ff);
-            color: white;
+        .action-btn {
+            background: var(--accent-gradient);
+            color: #fff;
             border: none;
-            padding: 15px 40px;
+            padding: 16px;
             border-radius: 50px;
             font-weight: 700;
-            cursor: pointer;
             width: 100%;
+            cursor: pointer;
             transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        /* Bank Modal Popup */
+        /* Payment Modal Popup */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0, 0, 0, 0.95);
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 999;
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: var(--card-bg);
+            background: #1e293b;
             padding: 40px;
             border-radius: 30px;
             width: 90%;
-            max-width: 450px;
-            border: 1px solid var(--primary-blue);
-            text-align: left;
-        }
-
-        .bank-info {
-            background: #0b0f19;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-
-        .bank-info p { margin: 8px 0; color: #cbd5e1; }
-
-        /* Floating WhatsApp Button */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 35px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 100;
-            text-decoration: none;
-        }
-
-        /* Transaction Input Section */
-        .chat-ui {
-            max-width: 600px;
-            margin: 50px auto;
+            max-width: 480px;
+            border: 1px solid var(--primary-cyan);
             text-align: center;
-            padding: 30px;
+        }
+
+        .payment-section {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .payment-section h4 { margin: 0 0 10px; color: var(--primary-cyan); display: flex; align-items: center; gap: 10px; }
+        .payment-row { display: flex; justify-content: space-between; margin: 5px 0; font-size: 0.95rem; }
+        .label { color: #64748b; }
+        .value { color: #fff; font-weight: 600; }
+
+        /* Transaction ID Area */
+        .submit-section {
+            max-width: 700px;
+            margin: 100px auto;
+            background: #111827;
+            padding: 50px 30px;
+            border-radius: 30px;
+            text-align: center;
+            border-top: 3px solid var(--primary-cyan);
         }
 
         #tx-id {
             width: 100%;
-            padding: 15px;
-            background: #161e2d;
+            max-width: 450px;
+            padding: 18px;
+            background: #050a15;
             border: 1px solid #334155;
-            border-radius: 10px;
-            color: white;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
             margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Floating WhatsApp Icon */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 100;
         }
     </style>
 </head>
@@ -170,93 +185,106 @@
 
 <header>
     <h1>LUPI PREMIUM</h1>
-    <p>Premium Digital Solutions & Services</p>
+    <p>Premium Digital Services & Tools Store</p>
 </header>
 
 <div class="container">
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product1.png" class="product-img">
         <h3>CapCut Pro</h3>
-        <div class="description">Full Unlocked Premium Features for Professional Editing.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <div class="description-box">Full unlocked professional editing features.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product2.png" class="product-img">
         <h3>Canva Pro</h3>
-        <div class="description">Access millions of premium templates and graphics.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <div class="description-box">Millions of premium templates and graphics.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product3.png" class="product-img">
         <h3>Netflix 4K</h3>
-        <div class="description">Ultra HD Streaming on all your favorite devices.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <div class="description-box">Ultra HD Streaming on multiple devices.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product4.png" class="product-img">
         <h3>YouTube Premium</h3>
-        <div class="description">Ad-free music and videos with background play.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <div class="description-box">Ad-free experience with background play.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product5.png" class="product-img">
         <h3>SMM Services</h3>
-        <div class="description">Boost your social media presence globally.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <div class="description-box">Grow your followers and engagement fast.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 
     <div class="product-card">
         <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product6.png" class="product-img">
-        <h3>Graphic Design</h3>
-        <div class="description">High-quality custom logos and brand designs.</div>
-        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+        <h3>Logo Design</h3>
+        <div class="description-box">Custom high-quality brand identity designs.</div>
+        <button class="action-btn" onclick="openModal()">Buy Now</button>
     </div>
 </div>
 
 <div id="paymentModal" class="modal">
     <div class="modal-content">
-        <h2 style="color:var(--primary-blue)">Payment Details</h2>
-        <p>Please complete the payment and send the Transaction ID below.</p>
-        <div class="bank-info">
-            <p><strong>Bank:</strong> HNB (Hatton National Bank)</p>
-            <p><strong>Name:</strong> KAPILAXSAN</p>
-            <p><strong>A/C:</strong> 091020379391</p>
-            <p><strong>Binance ID:</strong> 1070842052</p>
+        <h2 style="color: var(--primary-cyan); margin-bottom: 10px;">Payment Details</h2>
+        <p style="margin-bottom: 25px;">Follow these steps to complete your order:</p>
+
+        <div class="payment-section">
+            <h4><i class="fas fa-university"></i> Bank Transfer</h4>
+            <div class="payment-row"><span class="label">Bank:</span> <span class="value">HNB</span></div>
+            <div class="payment-row"><span class="label">Name:</span> <span class="value">KAPILAXSAN</span></div>
+            <div class="payment-row"><span class="label">Account:</span> <span class="value">091020379391</span></div>
         </div>
-        <button class="buy-btn" onclick="closeModal()">GOT IT</button>
+
+        <div class="payment-section">
+            <h4><i class="fas fa-coins"></i> Crypto</h4>
+            <div class="payment-row"><span class="label">Binance ID:</span> <span class="value">1070842052</span></div>
+        </div>
+
+        <button class="action-btn" onclick="closeAndScroll()">GOT IT</button>
     </div>
 </div>
 
-<div class="chat-ui">
-    <h3>SUBMIT TRANSACTION ID</h3>
-    <p>Paste your payment reference ID here:</p>
-    <input type="text" id="tx-id" placeholder="Ex: HNB-987654321">
-    <button class="buy-btn" onclick="sendToWhatsapp()">SUBMIT VIA WHATSAPP</button>
+<div id="chat-ui" class="submit-section">
+    <h3 style="color: var(--primary-cyan);">SUBMIT TRANSACTION ID</h3>
+    <p>Please paste your payment reference number below:</p>
+    <input type="text" id="tx-id" placeholder="Ex: HNB-123456789">
+    <br>
+    <button class="action-btn" style="max-width: 250px;" onclick="sendToWhatsApp()">SUBMIT ID</button>
 </div>
 
-<a href="https://wa.me/94785862072" class="whatsapp-btn" target="_blank">
+<a href="https://wa.me/94785862072" class="wa-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
 
 <script>
     function openModal() { document.getElementById("paymentModal").style.display = "flex"; }
-    function closeModal() { document.getElementById("paymentModal").style.display = "none"; }
     
-    function sendToWhatsapp() {
-        var id = document.getElementById("tx-id").value;
+    function closeAndScroll() {
+        document.getElementById("paymentModal").style.display = "none";
+        document.getElementById("chat-ui").scrollIntoView({ behavior: 'smooth' });
+        document.getElementById("tx-id").focus();
+    }
+
+    function sendToWhatsApp() {
+        let id = document.getElementById("tx-id").value;
         if(id === "") {
-            alert("Please enter your Transaction ID first!");
+            alert("Please enter the Transaction ID first!");
         } else {
-            var url = "https://wa.me/94785862072?text=Hello LUPI, My Transaction ID is: " + id;
-            window.open(url, '_blank').focus();
+            let msg = "Hello LUPI, I have completed the payment. My Transaction ID is: " + id;
+            window.open("https://wa.me/94785862072?text=" + encodeURIComponent(msg), "_blank");
         }
     }
 </script>
 
 </body>
-    </html>
+            </html>
     
