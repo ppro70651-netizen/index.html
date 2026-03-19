@@ -3,189 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAKASHI STORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>LUPI PREMIUM DIGITAL STORE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0b0f1a; color: white; font-family: sans-serif; }
-        .hidden { display: none; }
-        .card { background: #161b2c; border: 1px solid #2d334a; border-radius: 15px; padding: 15px; }
-        .btn-buy { background: #fbbf24; color: black; font-weight: bold; padding: 6px 18px; border-radius: 10px; font-size: 14px; }
-        .btn-get-coin { background: #3b82f6; color: white; font-weight: bold; padding: 8px; border-radius: 8px; font-size: 13px; width: 100%; }
-        .float-wa { position: fixed; bottom: 85px; right: 15px; background: #25d366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 100; }
-        .float-cart { position: fixed; bottom: 20px; right: 15px; background: #fbbf24; color: black; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; z-index: 100; cursor: pointer; }
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-        .modal-content { background: #161b2c; width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; max-height: 85vh; overflow-y: auto; border: 1px solid #2d334a; }
-        .prod-img { width: 55px; height: 55px; object-fit: contain; border-radius: 10px; background: #0b0f1a; }
+        :root {
+            --primary-blue: #00d4ff;
+            --dark-bg: #0b0f19;
+            --card-bg: #161e2d;
+            --text-glow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #161e2d 0%, #0b0f19 100%);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            color: var(--primary-blue);
+            text-shadow: var(--text-glow);
+            letter-spacing: 3px;
+        }
+
+        /* Grid Container */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* Premium Card Design */
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #a0aec0;
+            height: 60px;
+            margin-bottom: 25px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #00d4ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        /* Bank Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 450px;
+            border: 1px solid var(--primary-blue);
+            text-align: left;
+        }
+
+        .bank-info {
+            background: #0b0f19;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .bank-info p { margin: 8px 0; color: #cbd5e1; }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        /* Transaction Input Section */
+        .chat-ui {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 30px;
+        }
+
+        #tx-id {
+            width: 100%;
+            padding: 15px;
+            background: #161e2d;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <div id="loginArea" class="max-w-md mx-auto mt-20 card text-center mx-4">
-        <h2 class="text-2xl font-black text-yellow-500 mb-4 italic">KAKASHI STORE</h2>
-        <input type="email" id="email" placeholder="Email Address" class="w-full p-3 mb-3 rounded-lg bg-gray-800 border border-gray-700 outline-none text-sm text-white">
-        <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-5 rounded-lg bg-gray-800 border border-gray-700 outline-none text-sm text-white">
-        <button onclick="login()" class="w-full bg-yellow-500 text-black font-bold p-3 rounded-lg uppercase text-sm">Login to Store</button>
+<header>
+    <h1>LUPI PREMIUM</h1>
+    <p>Premium Digital Solutions & Services</p>
+</header>
+
+<div class="container">
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product1.png" class="product-img">
+        <h3>CapCut Pro</h3>
+        <div class="description">Full Unlocked Premium Features for Professional Editing.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
     </div>
 
-    <div id="storeArea" class="hidden pb-24">
-        <nav class="p-5 sticky top-0 bg-[#0b0f1a]/95 backdrop-blur-md z-50 border-b border-gray-800">
-            <div class="flex justify-between items-center mb-4">
-                <h1 class="text-xl font-black text-yellow-500 italic uppercase">Kakashi Store</h1>
-                <div class="bg-yellow-500 text-black px-3 py-1 rounded-lg font-bold flex items-center text-sm shadow-lg">
-                    <i class="fas fa-coins mr-1.5"></i> <span id="balance">0</span>
-                </div>
-            </div>
-            <button onclick="toggleCoinModal(true)" class="btn-get-coin uppercase tracking-wider">
-                <i class="fas fa-plus-circle mr-2"></i> Get Coins / Top Up
-            </button>
-        </nav>
-
-        <div id="productGrid" class="p-4 grid grid-cols-1 gap-4"></div>
-
-        <a href="https://wa.me/94719609238" target="_blank" class="float-wa"><i class="fab fa-whatsapp"></i></a>
-        <div class="float-cart" onclick="toggleModal(true)"><i class="fas fa-shopping-bag"></i></div>
-
-        <div id="coinModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="flex justify-between items-center mb-4 text-blue-400 font-bold uppercase">
-                    <h2 class="text-sm">Recharge Wallet</h2>
-                    <button onclick="toggleCoinModal(false)" class="text-2xl text-gray-500">&times;</button>
-                </div>
-                <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 mb-4 text-[11px] space-y-2">
-                    <p class="text-yellow-500 font-bold uppercase">Bank Account Details:</p>
-                    <p>Bank: BOC / Commercial Bank</p>
-                    <p>Acc No: 1234567890</p>
-                    <p>Name: KAKASHI STORE</p>
-                    <hr class="border-gray-800 my-2">
-                    <p class="text-yellow-500 font-bold uppercase">Price List:</p>
-                    <p>$1 = 300 Coins</p>
-                </div>
-                <p class="text-[10px] text-gray-400 mb-2 italic">Select receipt/screenshot to proceed:</p>
-                <input type="file" id="receiptFile" class="text-xs text-gray-400 mb-4 w-full">
-                <button onclick="submitRequest()" class="w-full bg-blue-600 text-white font-bold p-3 rounded-lg text-sm uppercase">Submit Request</button>
-            </div>
-        </div>
-
-        <div id="orderModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="flex justify-between items-center mb-4 text-yellow-500 font-bold uppercase">
-                    <h2>My Orders & Inbox</h2>
-                    <button onclick="toggleModal(false)" class="text-2xl text-gray-400">&times;</button>
-                </div>
-                <div id="ordersList" class="space-y-3"></div>
-            </div>
-        </div>
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product2.png" class="product-img">
+        <h3>Canva Pro</h3>
+        <div class="description">Access millions of premium templates and graphics.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, onValue, set, update, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product3.png" class="product-img">
+        <h3>Netflix 4K</h3>
+        <div class="description">Ultra HD Streaming on all your favorite devices.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+    </div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyD7rEDSVBRoG_fllOTorAZNt-bXau0qIDI",
-            authDomain: "kakashi-store.firebaseapp.com",
-            projectId: "kakashi-store",
-            databaseURL: "https://kakashi-store-default-rtdb.firebaseio.com",
-            storageBucket: "kakashi-store.firebasestorage.app",
-            messagingSenderId: "771931107154",
-            appId: "1:771931107154:web:3ba8f14b52516b4012148b"
-        };
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product4.png" class="product-img">
+        <h3>YouTube Premium</h3>
+        <div class="description">Ad-free music and videos with background play.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+    </div>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product5.png" class="product-img">
+        <h3>SMM Services</h3>
+        <div class="description">Boost your social media presence globally.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+    </div>
 
-        const products = [
-            { name: "HG Cheats Key", cost: 150, img: "ff1.jpg" },
-            { name: "BR Mods Key", cost: 280, img: "ff2.jpg" },
-            { name: "PicsArt Premium", cost: 400, img: "picsart.jpg" },
-            { name: "Capcut Pro", cost: 100, img: "capcut.jpg" },
-            { name: "Netflix Premium", cost: 500, img: "netflix.jpg" },
-            { name: "Spotify Premium", cost: 300, img: "spotify.jpg" },
-            { name: "Lightroom Premium", cost: 200, img: "lightroom.jpg" }
-        ];
+    <div class="product-card">
+        <img src="https://raw.githubusercontent.com/lipu8/Lipu-/main/product6.png" class="product-img">
+        <h3>Graphic Design</h3>
+        <div class="description">High-quality custom logos and brand designs.</div>
+        <button class="buy-btn" onclick="openModal()">BUY NOW</button>
+    </div>
+</div>
 
-        let uBal = 0; let uID = null; let uEmail = "";
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <h2 style="color:var(--primary-blue)">Payment Details</h2>
+        <p>Please complete the payment and send the Transaction ID below.</p>
+        <div class="bank-info">
+            <p><strong>Bank:</strong> HNB (Hatton National Bank)</p>
+            <p><strong>Name:</strong> KAPILAXSAN</p>
+            <p><strong>A/C:</strong> 091020379391</p>
+            <p><strong>Binance ID:</strong> 1070842052</p>
+        </div>
+        <button class="buy-btn" onclick="closeModal()">GOT IT</button>
+    </div>
+</div>
 
-        window.login = () => {
-            const e = document.getElementById('email').value;
-            const p = document.getElementById('password').value;
-            if(!e || !p) return alert("Enter details");
-            signInWithEmailAndPassword(auth, e, p).catch(() => createUserWithEmailAndPassword(auth, e, p));
-        };
+<div class="chat-ui">
+    <h3>SUBMIT TRANSACTION ID</h3>
+    <p>Paste your payment reference ID here:</p>
+    <input type="text" id="tx-id" placeholder="Ex: HNB-987654321">
+    <button class="buy-btn" onclick="sendToWhatsapp()">SUBMIT VIA WHATSAPP</button>
+</div>
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                uID = user.uid; uEmail = user.email;
-                document.getElementById('loginArea').classList.add('hidden');
-                document.getElementById('storeArea').classList.remove('hidden');
-                loadStore();
-                onValue(ref(db, 'users/' + uID), (snap) => {
-                    uBal = snap.val() ? snap.val().coins : 0; 
-                    document.getElementById('balance').innerText = uBal;
-                });
-                onValue(ref(db, 'orders/' + uID), (snap) => {
-                    const list = document.getElementById('ordersList'); list.innerHTML = "";
-                    if(snap.val()) {
-                        Object.entries(snap.val()).reverse().forEach(([key, order]) => {
-                            const isPending = order.status === "Pending";
-                            list.innerHTML += `<div class="card bg-gray-900 border-l-4 ${isPending ? 'border-yellow-500' : 'border-green-500'} p-3 text-sm">
-                                <p class="font-bold text-white">${order.item}</p>
-                                <p class="text-[10px] font-bold text-gray-500 uppercase">${order.status}</p>
-                                <div class="mt-2 text-xs text-gray-400 bg-black/50 p-2 rounded">${order.delivery || 'Processing order...'}</div>
-                            </div>`;
-                        });
-                    }
-                });
-            }
-        });
+<a href="https://wa.me/94785862072" class="whatsapp-btn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
-        function loadStore() {
-            document.getElementById('productGrid').innerHTML = products.map(p => `
-                <div class="card flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="${p.img}" class="prod-img">
-                        <div>
-                            <h3 class="font-bold text-sm">${p.name}</h3>
-                            <span class="text-yellow-500 text-xs font-bold">🪙 ${p.cost}</span>
-                        </div>
-                    </div>
-                    <button onclick="buyNow('${p.name}', ${p.cost})" class="btn-buy">Buy</button>
-                </div>
-            `).join('');
+<script>
+    function openModal() { document.getElementById("paymentModal").style.display = "flex"; }
+    function closeModal() { document.getElementById("paymentModal").style.display = "none"; }
+    
+    function sendToWhatsapp() {
+        var id = document.getElementById("tx-id").value;
+        if(id === "") {
+            alert("Please enter your Transaction ID first!");
+        } else {
+            var url = "https://wa.me/94785862072?text=Hello LUPI, My Transaction ID is: " + id;
+            window.open(url, '_blank').focus();
         }
+    }
+</script>
 
-        window.buyNow = (name, cost) => {
-            if (uBal >= cost) {
-                update(ref(db, 'users/' + uID), { coins: uBal - cost });
-                push(ref(db, 'orders/' + uID), { item: name, cost: cost, status: "Pending", delivery: "", time: Date.now() });
-                alert("Order Placed Successfully!");
-            } else { alert("Insufficient coins! Please Top Up."); }
-        };
-
-        window.submitRequest = () => {
-            const fileInput = document.getElementById('receiptFile');
-            if(fileInput.files.length === 0) return alert("Please select a screenshot first!");
-
-            const myNumber = "94719609238"; 
-            const msg = `PAYMENT RECEIPT: 
-Email: ${uEmail}
-I have sent the payment. Please verify and add coins to my account.`;
-            
-            const waLink = `https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`;
-            
-            push(ref(db, 'admin_requests'), { user: uEmail, uid: uID, status: "Pending", time: Date.now() });
-
-            alert("Redirecting to WhatsApp. Please attach your screenshot and send.");
-            window.open(waLink, '_blank');
-            toggleCoinModal(false);
-        };
-
-        window.toggleModal = (show) => { document.getElementById('orderModal').classList.toggle('hidden', !show); };
-        window.toggleCoinModal = (show) => { document.getElementById('coinModal').classList.toggle('hidden', !show); };
-    </script>
 </body>
-                    </html>
-                    
+    </html>
+    
